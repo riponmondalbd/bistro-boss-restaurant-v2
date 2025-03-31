@@ -19,7 +19,7 @@ const Category = () => {
         heading={"Order Online"}
       />
       <Swiper
-        slidesPerView={1}
+        slidesPerView={2}
         spaceBetween={30}
         pagination={{
           clickable: true,
@@ -30,7 +30,7 @@ const Category = () => {
             spaceBetween: 20,
           },
           768: {
-            slidesPerView: 4,
+            slidesPerView: 3,
             spaceBetween: 40,
           },
           1024: {
