@@ -6,10 +6,10 @@ const Featured = () => {
   return (
     <section
       style={{ backgroundImage: `url(${featuredImage})` }}
-      className="text-white pt-8 my-20"
+      className="text-white pt-8 my-20 bg-fixed"
     >
       <SectionTitle subheading={"Check in Out"} heading={"Featured Item"} />
-      <div className="md:flex items-center justify-center gap-10 pb-20 pt-12 px-36">
+      <div className="md:flex items-center justify-center gap-10 pb-20 pt-12 px-36 bg-slate-800/30">
         <div>
           <img src={featuredImage} alt="featured image" />
         </div>
@@ -22,7 +22,9 @@ const Featured = () => {
             Eaque repellat recusandae ad laudantium tempore consequatur
             consequuntur omnis ullam maxime tenetur.
           </p>
-          <button className="btn btn-outline">Read More</button>
+          <button className="btn btn-outline border-0 border-b-4">
+            Read More
+          </button>
         </div>
       </div>
     </section>
