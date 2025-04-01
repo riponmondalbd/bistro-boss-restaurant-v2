@@ -8,7 +8,7 @@ import Cover from "../../Shared/Cover/Cover";
 import OrderTab from "../OrderTab/OrderTab";
 
 const Order = () => {
-  const categories = ["salad", "pizza", "soup", "dessert", "drinks"];
+  const categories = ["salads", "pizza", "soups", "desserts", "drinks"];
   const { category } = useParams();
   const initialIndex = categories.indexOf(category);
 
@@ -16,9 +16,9 @@ const Order = () => {
   const [menu] = useMenu();
 
   const dessert = menu.filter((item) => item.category === "dessert");
+  const pizza = menu.filter((item) => item.category === "pizza");
   const soup = menu.filter((item) => item.category === "soup");
   const salad = menu.filter((item) => item.category === "salad");
-  const pizza = menu.filter((item) => item.category === "pizza");
   const drinks = menu.filter((item) => item.category === "drinks");
 
   return (
@@ -29,8 +29,8 @@ const Order = () => {
         <TabList>
           <Tab>Salad</Tab>
           <Tab>Pizza</Tab>
-          <Tab>Soup</Tab>
-          <Tab>Dessert</Tab>
+          <Tab>Soups</Tab>
+          <Tab>Desserts</Tab>
           <Tab>Drinks</Tab>
         </TabList>
         <TabPanel>
