@@ -8,6 +8,7 @@ import Testimonials from "../Testimonials/Testimonials";
 const Home = () => {
   return (
     <div>
+      <title>Bistro Boss | Home</title>
       <Banner />
       <Category />
       <PopularMenu />
