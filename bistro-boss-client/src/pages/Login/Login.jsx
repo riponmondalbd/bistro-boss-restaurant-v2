@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Link } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import {
   LoadCanvasTemplate,
   loadCaptchaEnginge,
@@ -10,8 +10,10 @@ import { AuthContext } from "../../providers/AuthProvider";
 
 const Login = () => {
   const [disable, setDisable] = useState(true);
-
   const { signIn } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
 
   useEffect(() => {
     loadCaptchaEnginge(6);
@@ -29,12 +31,14 @@ const Login = () => {
       console.log(user);
 
       Swal.fire({
-        position: "center-center",
+        position: "center",
         icon: "success",
         title: "User Login Successful.",
         showConfirmButton: false,
         timer: 1500,
       });
+
+      navigate(from, { replace: true });
     });
   };
 
