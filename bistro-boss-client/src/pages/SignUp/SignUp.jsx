@@ -1,13 +1,16 @@
 import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
+import Swal from "sweetalert2";
 import { AuthContext } from "../../providers/AuthProvider";
 
 const SignUp = () => {
-  const { createUser } = useContext(AuthContext);
+  const { createUser, updateUserProfile, logOut } = useContext(AuthContext);
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm();
 
@@ -16,6 +19,30 @@ const SignUp = () => {
     createUser(data.email, data.password).then((result) => {
       const loggedUser = result.user;
       console.log(loggedUser);
+
+      updateUserProfile(data.name, data.photoUrl)
+        .then(() => {
+          console.log("user profile is updated");
+          reset();
+          logOut()
+            .then(() => {})
+            .catch((error) => {
+              console.error(error);
+            });
+
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            title: "User Created Successful.",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+
+          navigate("/login");
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     });
   };
 
@@ -130,6 +157,16 @@ const SignUp = () => {
                 />
                 {errors.name && (
                   <span className="text-red-600">Name is required</span>
+                )}
+                <label className="fieldset-label">Photo URL</label>
+                <input
+                  type="url"
+                  {...register("photoUrl", { required: true })}
+                  className="input"
+                  placeholder="Photo URL"
+                />
+                {errors.photoUrl && (
+                  <span className="text-red-600">Photo URL is required</span>
                 )}
                 <label className="fieldset-label">Email</label>
                 <input
