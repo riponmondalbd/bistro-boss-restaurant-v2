@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import { HiShoppingCart } from "react-icons/hi";
 import { Link } from "react-router";
 import { AuthContext } from "../../../providers/AuthProvider";
 
@@ -26,6 +27,14 @@ const Navbar = () => {
       </li>
       <li>
         <Link to={"/secret"}>Secret</Link>
+      </li>
+      <li>
+        <Link to={"/"}>
+          <button className="btn">
+            <HiShoppingCart className="text-xl" />
+            <div className="badge badge-sm badge-secondary">+</div>
+          </button>
+        </Link>
       </li>
       {user ? (
         <>
@@ -68,7 +77,7 @@ const Navbar = () => {
             </div>
             <ul
               tabIndex={0}
-              className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
+              className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow text-black"
             >
               {navOptions}
             </ul>
@@ -76,7 +85,9 @@ const Navbar = () => {
           <a className="btn btn-ghost text-xl">Bistro Boss</a>
         </div>
         <div className="navbar-center hidden lg:flex">
-          <ul className="menu menu-horizontal px-1">{navOptions}</ul>
+          <ul className="menu menu-horizontal items-center px-1">
+            {navOptions}
+          </ul>
         </div>
         <div className="navbar-end">
           <a className="btn">Button</a>
