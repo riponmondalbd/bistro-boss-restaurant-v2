@@ -7,8 +7,11 @@ import {
 import { FaCalendarCheck, FaRankingStar } from "react-icons/fa6";
 import { IoMail, IoMenu } from "react-icons/io5";
 import { NavLink, Outlet } from "react-router";
+import useCart from "../hooks/useCart";
 
 const Dashboard = () => {
+  const [cart] = useCart();
+
   return (
     <div className="flex">
       {/* dashboard sidebar */}
@@ -48,7 +51,7 @@ const Dashboard = () => {
               to={"/dashboard/cart"}
             >
               <FaShoppingCart />
-              My Cart
+              My Cart ({cart.length})
             </NavLink>
           </li>
           {/* review */}
