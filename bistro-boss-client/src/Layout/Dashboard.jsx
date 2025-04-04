@@ -1,6 +1,11 @@
-import React from "react";
-import { FaCalendar, FaHome, FaShoppingCart } from "react-icons/fa";
+import {
+  FaCalendar,
+  FaHome,
+  FaShoppingBag,
+  FaShoppingCart,
+} from "react-icons/fa";
 import { FaCalendarCheck, FaRankingStar } from "react-icons/fa6";
+import { IoMail, IoMenu } from "react-icons/io5";
 import { NavLink, Outlet } from "react-router";
 
 const Dashboard = () => {
@@ -70,10 +75,60 @@ const Dashboard = () => {
               My Bookings
             </NavLink>
           </li>
+          {/* divider */}
+          <div className="divider divider-accent"></div>
+          {/* home */}
+          <li>
+            <NavLink
+              style={({ isActive }) => ({
+                color: isActive ? "white" : "black",
+              })}
+              to={"/"}
+            >
+              <FaHome />
+              Home
+            </NavLink>
+          </li>
+          {/* menu */}
+          <li>
+            <NavLink
+              style={({ isActive }) => ({
+                color: isActive ? "white" : "black",
+              })}
+              to={"/order/salads"}
+            >
+              <IoMenu />
+              Menu
+            </NavLink>
+          </li>
+          {/* shop */}
+          <li>
+            <NavLink
+              style={({ isActive }) => ({
+                color: isActive ? "white" : "black",
+              })}
+              to={"/shop"}
+            >
+              <FaShoppingBag />
+              Shop
+            </NavLink>
+          </li>
+          {/* contact */}
+          <li>
+            <NavLink
+              style={({ isActive }) => ({
+                color: isActive ? "white" : "black",
+              })}
+              to={"/contact"}
+            >
+              <IoMail />
+              Contact
+            </NavLink>
+          </li>
         </ul>
       </div>
       {/* dashboard content */}
-      <div className="flex-1">
+      <div className="flex-1 p-8">
         <Outlet />
       </div>
     </div>
