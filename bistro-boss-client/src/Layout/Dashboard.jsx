@@ -1,8 +1,12 @@
 import {
+  FaBook,
   FaCalendar,
   FaHome,
+  FaList,
   FaShoppingBag,
   FaShoppingCart,
+  FaUsers,
+  FaUtensils,
 } from "react-icons/fa";
 import { FaCalendarCheck, FaRankingStar } from "react-icons/fa6";
 import { IoMail, IoMenu } from "react-icons/io5";
@@ -20,67 +24,137 @@ const Dashboard = () => {
       {/* dashboard sidebar */}
       <div className="w-64 min-h-screen bg-[#D1A054]">
         <ul className="menu w-full p-4 space-y-3">
-          {/* home */}
-          <li>
-            <NavLink
-              style={({ isActive }) => ({
-                color: isActive ? "white" : "black",
-              })}
-              to={"/dashboard/userHome"}
-            >
-              <FaHome />
-              User Home
-            </NavLink>
-          </li>
-          {/* reservation */}
-          <li>
-            <NavLink
-              style={({ isActive }) => ({
-                color: isActive ? "white" : "black",
-              })}
-              to={"/dashboard/reservation"}
-            >
-              <FaCalendar />
-              Reservation
-            </NavLink>
-          </li>
+          {isAdmin ? (
+            <>
+              {/* admin data */}
+              {/* admin home */}
+              <li>
+                <NavLink
+                  style={({ isActive }) => ({
+                    color: isActive ? "white" : "black",
+                  })}
+                  to={"/dashboard/adminHome"}
+                >
+                  <FaHome />
+                  Admin Home
+                </NavLink>
+              </li>
+              {/* add items */}
+              <li>
+                <NavLink
+                  style={({ isActive }) => ({
+                    color: isActive ? "white" : "black",
+                  })}
+                  to={"/dashboard/addItems"}
+                >
+                  <FaUtensils />
+                  Add Items
+                </NavLink>
+              </li>
 
-          {/* cart */}
-          <li>
-            <NavLink
-              style={({ isActive }) => ({
-                color: isActive ? "white" : "black",
-              })}
-              to={"/dashboard/cart"}
-            >
-              <FaShoppingCart />
-              My Cart ({cart.length})
-            </NavLink>
-          </li>
-          {/* review */}
-          <li>
-            <NavLink
-              style={({ isActive }) => ({
-                color: isActive ? "white" : "black",
-              })}
-              to={"/dashboard/review"}
-            >
-              <FaRankingStar />
-              Add Review
-            </NavLink>
-          </li>
-          {/* bookings */}
-          <li>
-            <NavLink
-              style={({ isActive }) => ({
-                color: isActive ? "white" : "black",
-              })}
-              to={"/dashboard/bookings"}
-            >
-              <FaCalendarCheck />
-              My Bookings
-            </NavLink>
-          </li>
+              {/* manage items */}
+              <li>
+                <NavLink
+                  style={({ isActive }) => ({
+                    color: isActive ? "white" : "black",
+                  })}
+                  to={"/dashboard/manageItems"}
+                >
+                  <FaList />
+                  Manage Items
+                </NavLink>
+              </li>
+              {/* manage bookings */}
+              <li>
+                <NavLink
+                  style={({ isActive }) => ({
+                    color: isActive ? "white" : "black",
+                  })}
+                  to={"/dashboard/bookings"}
+                >
+                  <FaBook />
+                  Manage Bookings
+                </NavLink>
+              </li>
+              {/* all users */}
+              <li>
+                <NavLink
+                  style={({ isActive }) => ({
+                    color: isActive ? "white" : "black",
+                  })}
+                  to={"/dashboard/users"}
+                >
+                  <FaUsers />
+                  All Users
+                </NavLink>
+              </li>
+            </>
+          ) : (
+            <>
+              {/* user data */}
+              {/* home */}
+              <li>
+                <NavLink
+                  style={({ isActive }) => ({
+                    color: isActive ? "white" : "black",
+                  })}
+                  to={"/dashboard/userHome"}
+                >
+                  <FaHome />
+                  User Home
+                </NavLink>
+              </li>
+              {/* reservation */}
+              <li>
+                <NavLink
+                  style={({ isActive }) => ({
+                    color: isActive ? "white" : "black",
+                  })}
+                  to={"/dashboard/reservation"}
+                >
+                  <FaCalendar />
+                  Reservation
+                </NavLink>
+              </li>
+
+              {/* cart */}
+              <li>
+                <NavLink
+                  style={({ isActive }) => ({
+                    color: isActive ? "white" : "black",
+                  })}
+                  to={"/dashboard/cart"}
+                >
+                  <FaShoppingCart />
+                  My Cart ({cart.length})
+                </NavLink>
+              </li>
+              {/* review */}
+              <li>
+                <NavLink
+                  style={({ isActive }) => ({
+                    color: isActive ? "white" : "black",
+                  })}
+                  to={"/dashboard/review"}
+                >
+                  <FaRankingStar />
+                  Add Review
+                </NavLink>
+              </li>
+              {/* bookings */}
+              <li>
+                <NavLink
+                  style={({ isActive }) => ({
+                    color: isActive ? "white" : "black",
+                  })}
+                  to={"/dashboard/bookings"}
+                >
+                  <FaCalendarCheck />
+                  My Bookings
+                </NavLink>
+              </li>
+            </>
+          )}
           {/* shared nav links */}
           {/* divider */}
           <div className="divider divider-accent"></div>
