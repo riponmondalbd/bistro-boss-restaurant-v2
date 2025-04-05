@@ -6,6 +6,7 @@ import {
   validateCaptcha,
 } from "react-simple-captcha";
 import Swal from "sweetalert2";
+import SocialLogin from "../../components/SocialLogin/SocialLogin";
 import { AuthContext } from "../../providers/AuthProvider";
 
 const Login = () => {
@@ -176,6 +177,7 @@ const Login = () => {
                   </Link>
                 </small>
               </p>
+              <SocialLogin />
             </div>
           </div>
         </div>
