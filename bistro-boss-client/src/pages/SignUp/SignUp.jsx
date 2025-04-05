@@ -2,9 +2,11 @@ import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router";
 import Swal from "sweetalert2";
+import useAxiosPublic from "../../hooks/useAxiosPublic";
 import { AuthContext } from "../../providers/AuthProvider";
 
 const SignUp = () => {
+  const axiosPublic = useAxiosPublic();
   const { createUser, updateUserProfile, logOut } = useContext(AuthContext);
   const navigate = useNavigate();
   const {
@@ -15,30 +17,40 @@ const SignUp = () => {
   } = useForm();
 
   const onSubmit = (data) => {
-    console.log(data);
+    // console.log(data);
     createUser(data.email, data.password).then((result) => {
       const loggedUser = result.user;
       console.log(loggedUser);
 
       updateUserProfile(data.name, data.photoUrl)
         .then(() => {
-          console.log("user profile is updated");
-          reset();
-          logOut()
-            .then(() => {})
-            .catch((error) => {
-              console.error(error);
-            });
+          // console.log("user profile is updated");
+          // create user entry in the database
+          const userInfo = {
+            name: data.name,
+            email: data.email,
+          };
+          axiosPublic.post("/users", userInfo).then((res) => {
+            if (res.data.insertedId) {
+              console.log("user added to the database");
+              reset();
+              logOut()
+                .then(() => {})
+                .catch((error) => {
+                  console.error(error);
+                });
 
-          Swal.fire({
-            position: "center",
-            icon: "success",
-            title: "User Created Successful.",
-            showConfirmButton: false,
-            timer: 1500,
+              Swal.fire({
+                position: "center",
+                icon: "success",
+                title: "User Created Successful.",
+                showConfirmButton: false,
+                timer: 1500,
+              });
+
+              navigate("/login");
+            }
           });
-
-          navigate("/login");
         })
         .catch((error) => {
           console.error(error);
