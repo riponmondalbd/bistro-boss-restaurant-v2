@@ -11,13 +11,14 @@ import {
 import { FaCalendarCheck, FaRankingStar } from "react-icons/fa6";
 import { IoMail, IoMenu } from "react-icons/io5";
 import { NavLink, Outlet } from "react-router";
+import useAdmin from "../hooks/useAdmin";
 import useCart from "../hooks/useCart";
 
 const Dashboard = () => {
   const [cart] = useCart();
 
   // TODO:get isAdmin value from the database
-  const isAdmin = true;
+  const [isAdmin] = useAdmin();
 
   return (
     <div className="flex">
