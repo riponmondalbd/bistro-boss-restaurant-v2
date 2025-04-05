@@ -31,11 +31,13 @@ async function run() {
     const cartCollection = client.db("bistroBossDb").collection("carts");
 
     // users related apis
+    // get user
     app.get("/users", async (req, res) => {
       const result = await userCollection.find().toArray();
       res.send(result);
     });
 
+    // create user
     app.post("/users", async (req, res) => {
       const user = req.body;
       const query = { email: user.email };
@@ -48,17 +50,42 @@ async function run() {
       res.send(result);
     });
 
+    // make admin
+    app.patch("/users/admin/:id", async (req, res) => {
+      const id = req.params.id;
+      const filter = { _id: new ObjectId(id) };
+      const updatedDoc = {
+        $set: {
+          role: "admin",
+        },
+      };
+      const result = await userCollection.updateOne(filter, updatedDoc);
+      res.send(result);
+    });
+
+    // delete user
+    app.delete("/users/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) };
+      const result = await userCollection.deleteOne(query);
+      res.send(result);
+    });
+
+    // menu related apis
+    // get menu
     app.get("/menu", async (req, res) => {
       const result = await menuCollection.find().toArray();
       res.send(result);
     });
 
+    // get reviews
     app.get("/reviews", async (req, res) => {
       const result = await reviewCollection.find().toArray();
       res.send(result);
     });
 
     // carts collection
+    // get cart
     app.get("/carts", async (req, res) => {
       const email = req.query.email;
       const query = { email: email };
@@ -66,12 +93,14 @@ async function run() {
       res.send(result);
     });
 
+    // create cart
     app.post("/carts", async (req, res) => {
       const cartItem = req.body;
       const result = await cartCollection.insertOne(cartItem);
       res.send(result);
     });
 
+    // delete cart
     app.delete("/carts/:id", async (req, res) => {
       const id = req.params.id;
       const query = { _id: new ObjectId(id) };
