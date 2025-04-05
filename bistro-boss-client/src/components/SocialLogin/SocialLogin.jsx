@@ -2,26 +2,35 @@ import React from "react";
 import { useLocation, useNavigate } from "react-router";
 import Swal from "sweetalert2";
 import useAuth from "../../hooks/useAuth";
+import useAxiosPublic from "../../hooks/useAxiosPublic";
 
 const SocialLogin = () => {
   const { googleSignIn } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
+  const axiosPublic = useAxiosPublic();
 
   const handleGoogleSignIn = () => {
     googleSignIn()
       .then((result) => {
         console.log(result.user);
-        Swal.fire({
-          position: "center",
-          icon: "success",
-          title: "User Login Successful.",
-          showConfirmButton: false,
-          timer: 1500,
-        });
+        const userInfo = {
+          email: result.user?.email,
+          name: result.user?.displayName,
+        };
+        axiosPublic.post("/users", userInfo).then((res) => {
+          console.log(res.data);
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            title: "User Login Successful.",
+            showConfirmButton: false,
+            timer: 1500,
+          });
 
-        navigate(from, { replace: true });
+          navigate(from, { replace: true });
+        });
       })
       .catch((error) => {
         console.error(error);

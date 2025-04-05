@@ -12,6 +12,9 @@ import useCart from "../hooks/useCart";
 const Dashboard = () => {
   const [cart] = useCart();
 
+  // TODO:get isAdmin value from the database
+  const isAdmin = true;
+
   return (
     <div className="flex">
       {/* dashboard sidebar */}
@@ -78,6 +81,7 @@ const Dashboard = () => {
               My Bookings
             </NavLink>
           </li>
+          {/* shared nav links */}
           {/* divider */}
           <div className="divider divider-accent"></div>
           {/* home */}
