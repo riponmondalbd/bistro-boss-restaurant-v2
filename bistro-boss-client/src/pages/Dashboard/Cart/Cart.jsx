@@ -38,6 +38,7 @@ const Cart = () => {
 
   return (
     <div>
+      <title>Bistro Boss | Cart</title>
       <div className="flex justify-between">
         <h2 className="text-4xl">Items: {cart.length}</h2>
         <h2 className="text-4xl">Total Price: {totalPrice}</h2>
