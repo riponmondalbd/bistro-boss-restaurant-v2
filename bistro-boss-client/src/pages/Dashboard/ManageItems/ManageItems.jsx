@@ -1,14 +1,41 @@
 import React from "react";
 import { FaEdit, FaTrashAlt } from "react-icons/fa";
+import Swal from "sweetalert2";
 import SectionTitle from "../../../components/SectionTitle/SectionTitle";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import useMenu from "../../../hooks/useMenu";
 
 const ManageItems = () => {
-  const [menu] = useMenu();
+  const [menu, , refetch] = useMenu();
+  const axiosSecure = useAxiosSecure();
 
   const handleUpdateItem = (item) => {};
 
-  const handleDeleteItem = (item) => {};
+  const handleDeleteItem = (item) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        const res = await axiosSecure.delete(`/menu/${item._id}`);
+        console.log(res.data);
+        if (res.data.deletedCount > 0) {
+          refetch();
+          Swal.fire({
+            title: `${item.name} has been deleted`,
+            icon: "success",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
+      }
+    });
+  };
   return (
     <div>
       <title>Bistro Boss | Manage Item</title>
@@ -43,7 +70,7 @@ const ManageItems = () => {
                 <td>${item.price}</td>
                 <th>
                   <button
-                    onClick={() => handleUpdateItem(user)}
+                    onClick={() => handleUpdateItem(item)}
                     className="btn btn-ghost bg-orange-400 text-white"
                   >
                     <FaEdit className="text-[16px]" />
@@ -51,7 +78,7 @@ const ManageItems = () => {
                 </th>
                 <th>
                   <button
-                    onClick={() => handleDeleteItem(user)}
+                    onClick={() => handleDeleteItem(item)}
                     className="btn btn-ghost bg-red-600 text-white"
                   >
                     <FaTrashAlt />
