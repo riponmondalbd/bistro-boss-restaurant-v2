@@ -1,5 +1,6 @@
 import React from "react";
 import { FaEdit, FaTrashAlt } from "react-icons/fa";
+import { Link } from "react-router";
 import Swal from "sweetalert2";
 import SectionTitle from "../../../components/SectionTitle/SectionTitle";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
@@ -8,8 +9,6 @@ import useMenu from "../../../hooks/useMenu";
 const ManageItems = () => {
   const [menu, , refetch] = useMenu();
   const axiosSecure = useAxiosSecure();
-
-  const handleUpdateItem = (item) => {};
 
   const handleDeleteItem = (item) => {
     Swal.fire({
@@ -69,12 +68,11 @@ const ManageItems = () => {
                 <td>{item.name}</td>
                 <td>${item.price}</td>
                 <th>
-                  <button
-                    onClick={() => handleUpdateItem(item)}
-                    className="btn btn-ghost bg-orange-400 text-white"
-                  >
-                    <FaEdit className="text-[16px]" />
-                  </button>
+                  <Link to={`/dashboard/updateItem/${item._id}`}>
+                    <button className="btn btn-ghost bg-orange-400 text-white">
+                      <FaEdit className="text-[16px]" />
+                    </button>
+                  </Link>
                 </th>
                 <th>
                   <button
