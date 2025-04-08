@@ -13,7 +13,7 @@ const UpdateItem = () => {
   const item = useLoaderData();
   const { name, category, recipe, price, _id } = item;
 
-  const { register, handleSubmit, reset } = useForm();
+  const { register, handleSubmit } = useForm();
   const axiosPublic = useAxiosPublic();
   const axiosSecure = useAxiosSecure();
 
