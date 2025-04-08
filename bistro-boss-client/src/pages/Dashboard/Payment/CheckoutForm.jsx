@@ -1,5 +1,6 @@
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import React, { useEffect, useState } from "react";
+import Swal from "sweetalert2";
 import useAuth from "../../../hooks/useAuth";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import useCart from "../../../hooks/useCart";
@@ -12,16 +13,18 @@ const CheckoutForm = () => {
   const elements = useElements();
   const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
-  const [cart] = useCart();
+  const [cart, refetch] = useCart();
   const totalPrice = cart.reduce((total, item) => total + item.price, 0);
 
   useEffect(() => {
-    axiosSecure
-      .post("/create-payment-intent", { price: totalPrice })
-      .then((res) => {
-        console.log(res.data.clientSecret);
-        setClientSecret(res.data.clientSecret);
-      });
+    if (totalPrice > 0) {
+      axiosSecure
+        .post("/create-payment-intent", { price: totalPrice })
+        .then((res) => {
+          console.log(res.data.clientSecret);
+          setClientSecret(res.data.clientSecret);
+        });
+    }
   }, [axiosSecure, totalPrice]);
 
   const handleSubmit = async (event) => {
@@ -82,6 +85,16 @@ const CheckoutForm = () => {
         };
         const res = await axiosSecure.post("/payments", payment);
         console.log("payment saved", res);
+        refetch();
+        if (res.data?.paymentResult?.insertedId) {
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            title: "Thank you for the taka paisa",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
       }
     }
   };

@@ -111,10 +111,10 @@ const Dashboard = () => {
                   style={({ isActive }) => ({
                     color: isActive ? "white" : "black",
                   })}
-                  to={"/dashboard/reservation"}
+                  to={"/dashboard/history"}
                 >
                   <FaCalendar />
-                  Reservation
+                  Payment History
                 </NavLink>
               </li>
 
@@ -148,10 +148,10 @@ const Dashboard = () => {
                   style={({ isActive }) => ({
                     color: isActive ? "white" : "black",
                   })}
-                  to={"/dashboard/bookings"}
+                  to={"/dashboard/paymentHistory"}
                 >
                   <FaCalendarCheck />
-                  My Bookings
+                  Payment Real History
                 </NavLink>
               </li>
             </>
