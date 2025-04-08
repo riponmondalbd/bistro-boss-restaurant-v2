@@ -114,7 +114,7 @@ const Dashboard = () => {
                   to={"/dashboard/history"}
                 >
                   <FaCalendar />
-                  Payment History
+                  Not History
                 </NavLink>
               </li>
 
@@ -151,7 +151,7 @@ const Dashboard = () => {
                   to={"/dashboard/paymentHistory"}
                 >
                   <FaCalendarCheck />
-                  Payment Real History
+                  Real Payment History
                 </NavLink>
               </li>
             </>

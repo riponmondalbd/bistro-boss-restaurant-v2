@@ -1,5 +1,6 @@
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router";
 import Swal from "sweetalert2";
 import useAuth from "../../../hooks/useAuth";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
@@ -15,6 +16,7 @@ const CheckoutForm = () => {
   const { user } = useAuth();
   const [cart, refetch] = useCart();
   const totalPrice = cart.reduce((total, item) => total + item.price, 0);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (totalPrice > 0) {
@@ -94,6 +96,7 @@ const CheckoutForm = () => {
             showConfirmButton: false,
             timer: 1500,
           });
+          navigate("/dashboard/paymentHistory");
         }
       }
     }
